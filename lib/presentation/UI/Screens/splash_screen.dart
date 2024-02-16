@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager/presentation/UI/Screens/login_screen.dart';
+import 'package:task_manager/presentation/UI/Screens/authentication/login_screen.dart';
 import 'package:task_manager/presentation/UI/Widgets/body_background.dart';
 
 class SplashScreen extends StatefulWidget {
