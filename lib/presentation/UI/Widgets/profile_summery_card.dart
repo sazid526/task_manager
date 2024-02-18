@@ -27,18 +27,18 @@ class ProfileSummeryCard extends StatelessWidget {
         backgroundImage: NetworkImage(
             "https://images.pexels.com/photos/15868390/pexels-photo-15868390/free-photo-of-bag-of-tulips.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
       ),
-      title: Text(
+      title: const Text(
         "Sazid arefin",
         style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
       ),
-      subtitle: Text(
+      subtitle: const Text(
         "sazidarefin@gmail.com",
         style: TextStyle(color: Colors.white),
       ),
-      trailing: Icon(
+      trailing: enableOnTap ? const Icon(
         Icons.arrow_forward_outlined,
         color: Colors.white,
-      ),
+      ) : null,
     );
   }
 }
