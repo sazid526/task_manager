@@ -43,6 +43,7 @@ class TaskManager extends StatelessWidget {
               backgroundColor: Colors.green.shade400
           )
         ),
+
       ),
     );
   }

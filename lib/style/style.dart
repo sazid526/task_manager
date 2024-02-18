@@ -28,3 +28,23 @@ PinTheme appOtpStyle(){
     fieldWidth: 45,
   );
 }
+AppBar mainAppBar(){
+  return AppBar(
+    leading: const CircleAvatar(
+     backgroundImage: NetworkImage("https://images.pexels.com/photos/15868390/pexels-photo-15868390/free-photo-of-bag-of-tulips.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+    ),
+    title: const Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Sazid arefin",style: TextStyle(
+          fontSize: 16
+        ),),
+        Text("sazidarefin20000@gmail.com",style: TextStyle(
+          fontSize: 12
+        ),)
+      ],
+    )
+    
+  );
+}
