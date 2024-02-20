@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:task_manager/data/controller/auth_controller.dart';
+import 'package:task_manager/data/model/user_model.dart';
+import 'package:task_manager/data/network_caller.dart';
+import 'package:task_manager/data/network_response.dart';
 import 'package:task_manager/data/utility/urls.dart';
 import 'package:task_manager/presentation/UI/Screens/authentication/signup_screen.dart';
 import 'package:task_manager/presentation/UI/Screens/authentication/verify_email_screen.dart';
@@ -43,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 16,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   validator: (String? value) {
                     if (value!.isEmpty ||
                         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
@@ -142,6 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _clearTextData() {
+    _passwordTEcontroller.clear();
+    _emailTEcontroller.clear();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -150,30 +159,35 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _logIn() async {
-    _loginInProgress = true;
-    setState(() {});
-    if(_formKey.currentState!.validate()) {
-      final Response response = await post(Uri.parse(Urls.signIn), body: {
+    if (_formKey.currentState!.validate()) {
+      _loginInProgress = true;
+      setState(() {});
+      NetworkResponse response = await NetworkCaller().postRequest(Urls.signIn,body: {
         "email": _emailTEcontroller.text.trim(),
         "password": _passwordTEcontroller.text.trim()
-      });
+      },);
       _loginInProgress = false;
       setState(() {});
       if (response.statusCode == 200) {
+        await AuthController.saveUserInformation(response.jsonResponse["token"], UserModel.fromJson(response.jsonResponse["data"]));
+        _clearTextData();
         if (mounted) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainBottomNavScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainBottomNavScreen(),
+            ),
+          );
         }
       } else {
         if (response.statusCode == 401) {
+          _clearTextData();
           if (mounted) {
-            appSnackMessage(context, "Please Check Your Email/password");
+            appSnackMessage(context, "Please Check Your Email/password", true);
           }
         } else {
           if (mounted) {
-            appSnackMessage(context, "Login Failed. try again");
+            appSnackMessage(context, "Login Failed. try again", true);
           }
         }
       }

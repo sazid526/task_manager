@@ -177,11 +177,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> _signUp() async {
-    _signUpInProgress = true;
-    setState(() {
-
-    });
     if (_formKey.currentState!.validate()) {
+      _signUpInProgress = true;
+      setState(() {
+
+      });
       final NetworkResponse response =
       await NetworkCaller().postRequest(
         Urls.signup,
