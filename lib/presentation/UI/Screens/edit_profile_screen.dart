@@ -22,7 +22,7 @@ class EditProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Text(
@@ -48,10 +48,10 @@ class EditProfileScreen extends StatelessWidget {
                                       bottomLeft: Radius.circular(8),
                                     ),
                                   ),
-                                  child: const Text("Photo",style: TextStyle(
-                                    color: Colors.white
-                                  ),),
                                   alignment: Alignment.center,
+                                  child: const Text("Photo",style: TextStyle(
+                                      color: Colors.white
+                                  ),),
                                 ),
                               ),
                               Expanded(
