@@ -16,9 +16,9 @@ class CompletedTaskScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
-                return const TaskItemCard(
-                  message: "Completed",
-                );
+                // return const TaskItemCard(
+                //   message: "Completed",
+                // );
               },
             ),
           )

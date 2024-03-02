@@ -43,9 +43,6 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
             setState(() {});
           },
         ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewTaskScreen()));
-        },child: const Icon(Icons.add),),
         body: _screens[_selectedIndex],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/presentation/UI/Widgets/profile_summery_card.dart';
-import 'package:task_manager/presentation/UI/Widgets/task_item_card.dart';
 
 class CancelledTaskScreen extends StatelessWidget {
   const CancelledTaskScreen({super.key});
@@ -15,9 +14,9 @@ class CancelledTaskScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
-                return const TaskItemCard(
-                  message: "Cancelled",
-                );
+                // return const TaskItemCard(
+                //   message: "Cancelled",
+                // );
               },
             ),
           )
