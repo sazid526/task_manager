@@ -34,6 +34,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -69,7 +70,6 @@ class _TaskItemCardState extends State<TaskItemCard> {
                           showUpdateStatus();
                         },
                         icon: const Icon(Icons.edit)),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
                   ],
                 )
               ],

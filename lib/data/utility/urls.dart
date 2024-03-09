@@ -4,6 +4,7 @@ class Urls{
   static const  String _baseUrl = "https://task.teamrabbil.com/api/v1";
   static const  String signup = "$_baseUrl/registration";
   static const  String signIn = "$_baseUrl/login";
+  static const  String updateProfile = "$_baseUrl/profileUpdate";
   static const  String createTask = "$_baseUrl/createTask";
   static  String createNewTask = "$_baseUrl/listTaskByStatus/${TaskStatus.New.name}";
   static  String createProgressTask = "$_baseUrl/listTaskByStatus/${TaskStatus.InProgress.name}";
