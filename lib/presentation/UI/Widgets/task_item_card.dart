@@ -3,16 +3,17 @@ import 'package:task_manager/data/model/task.dart';
 import 'package:task_manager/data/network_caller.dart';
 import 'package:task_manager/data/utility/urls.dart';
 
-enum TaskStatus { New, InProgress, Completed, Cancelled }
+enum TaskStatus { New,Todo, InProgress, Completed, Cancelled }
 
 class TaskItemCard extends StatefulWidget {
   const TaskItemCard({
     super.key,
     required this.message,
-    required this.taskList, required this.onChangeStatus, required this.showProgress,
+    required this.taskList, required this.onChangeStatus, required this.showProgress, required this.buttonColor,
   });
 
   final String message;
+  final Color buttonColor;
   final TaskList taskList;
   final VoidCallback onChangeStatus;
   final Function(bool) showProgress;
@@ -59,7 +60,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
                     widget.message,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: widget.buttonColor,
                 ),
                 Wrap(
                   children: [

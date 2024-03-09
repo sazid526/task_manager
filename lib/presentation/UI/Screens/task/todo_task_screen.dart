@@ -7,27 +7,26 @@ import 'package:task_manager/presentation/UI/Widgets/center_circuler_indicatior.
 import 'package:task_manager/presentation/UI/Widgets/profile_summery_card.dart';
 import 'package:task_manager/presentation/UI/Widgets/task_item_card.dart';
 
-
-class CompletedTaskScreen extends StatefulWidget {
-  const CompletedTaskScreen({super.key});
+class TodoTaskScreen extends StatefulWidget {
+  const TodoTaskScreen({super.key});
 
   @override
-  State<CompletedTaskScreen> createState() => _CompletedTaskScreenState();
+  State<TodoTaskScreen> createState() => _TodoTaskScreenState();
 }
 
-class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
-  bool completedTaskListInProgress = false;
+class _TodoTaskScreenState extends State<TodoTaskScreen> {
+  bool todoTaskListInProgress =  false;
   TaskListModel taskListModel = TaskListModel();
 
-  Future<void> getCompletedTaskList() async {
-    completedTaskListInProgress = true;
+  Future<void> getTodoTaskList() async {
+    todoTaskListInProgress = true;
     setState(() {});
     final NetworkResponse response =
-    await NetworkCaller().getRequest(Urls.createCompletedTask);
+    await NetworkCaller().getRequest(Urls.createTodoTask);
     if (response.isSuccess) {
       taskListModel = TaskListModel.fromJson(response.jsonResponse);
     }
-    completedTaskListInProgress = false;
+    todoTaskListInProgress = false;
     setState(() {});
   }
 
@@ -35,8 +34,9 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCompletedTaskList();
+    getTodoTaskList();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,27 +46,27 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
           const ProfileSummeryCard(),
           Expanded(
             child: Visibility(
-              visible: completedTaskListInProgress == false,
+              visible: todoTaskListInProgress == false,
               replacement: const CenterCircularProgressIndicator(),
               child: RefreshIndicator(
                 onRefresh: () async{
-                  await getCompletedTaskList();
+                  await getTodoTaskList();
                 },
                 child: ListView.builder(
                   itemCount: taskListModel.taskList?.length ?? 0,
                   itemBuilder: (context, index) {
                     return TaskItemCard(
                       taskList: taskListModel.taskList![index],
-                      message: "Completed",
-                      buttonColor: Colors.green,
+                      message: "Todo",
+                      buttonColor: Colors.orange,
                       onChangeStatus: (){
-                        getCompletedTaskList();
+                        getTodoTaskList();
                       },
                       showProgress: (inProgress){
-                        completedTaskListInProgress = inProgress;
+                        todoTaskListInProgress = inProgress;
                         if(mounted){
                           setState(() {
-
+            
                           });
                         }
                       },

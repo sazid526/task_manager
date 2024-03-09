@@ -8,6 +8,7 @@ class Urls{
   static  String createNewTask = "$_baseUrl/listTaskByStatus/${TaskStatus.New.name}";
   static  String createProgressTask = "$_baseUrl/listTaskByStatus/${TaskStatus.InProgress.name}";
   static  String createCompletedTask = "$_baseUrl/listTaskByStatus/${TaskStatus.Completed.name}";
+  static  String createTodoTask = "$_baseUrl/listTaskByStatus/${TaskStatus.Todo.name}";
   static  String createCancelledTask = "$_baseUrl/listTaskByStatus/${TaskStatus.Cancelled.name}";
   static const String getTaskStatusSummery = "$_baseUrl/taskStatusCount";
   static String updateTaskStatus(String taskId, String status) => "$_baseUrl/updateTaskStatus/$taskId/$status";

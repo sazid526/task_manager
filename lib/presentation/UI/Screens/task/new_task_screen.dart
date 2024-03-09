@@ -115,6 +115,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       return TaskItemCard(
                         taskList: taskListModel.taskList![index],
                         message: "New",
+                        buttonColor: Colors.blue,
                         onChangeStatus: (){
                           getNewTaskList();
                           getTaskCountSummeryList();

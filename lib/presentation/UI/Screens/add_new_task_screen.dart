@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/data/network_caller.dart';
 import 'package:task_manager/data/network_response.dart';
 import 'package:task_manager/data/utility/urls.dart';
+import 'package:task_manager/presentation/UI/Screens/main_bottom_nav_screen.dart';
+import 'package:task_manager/presentation/UI/Screens/task/new_task_screen.dart';
 import 'package:task_manager/presentation/UI/Widgets/body_background.dart';
 import 'package:task_manager/presentation/UI/Widgets/center_circuler_indicatior.dart';
 import 'package:task_manager/presentation/UI/Widgets/profile_summery_card.dart';
@@ -122,6 +124,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
         _descriptionTEcontroller.clear();
         if(mounted){
           appSnackMessage(context, "New task added successfully");
+        }
+        if(mounted){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen()));
         }
       }else{
         if(mounted){

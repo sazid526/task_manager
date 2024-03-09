@@ -18,7 +18,7 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
   bool inProgressTaskListInProgress =  false;
   TaskListModel taskListModel = TaskListModel();
 
-  Future<void> getNewTaskList() async {
+  Future<void> getInProgressTaskList() async {
     inProgressTaskListInProgress = true;
     setState(() {});
     final NetworkResponse response =
@@ -28,6 +28,13 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
     }
     inProgressTaskListInProgress = false;
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getInProgressTaskList();
   }
 
 
@@ -43,22 +50,23 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
               replacement: const CenterCircularProgressIndicator(),
               child: RefreshIndicator(
                 onRefresh: () async{
-                  await getNewTaskList();
+                  await getInProgressTaskList();
                 },
                 child: ListView.builder(
                   itemCount: taskListModel.taskList?.length ?? 0,
                   itemBuilder: (context, index) {
                     return TaskItemCard(
                       taskList: taskListModel.taskList![index],
-                      message: "New",
+                      message: "InProgress",
+                      buttonColor: Colors.cyan,
                       onChangeStatus: (){
-                        getNewTaskList();
+                        getInProgressTaskList();
                       },
                       showProgress: (inProgress){
                         inProgressTaskListInProgress = inProgress;
                         if(mounted){
                           setState(() {
-
+            
                           });
                         }
                       },
