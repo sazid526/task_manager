@@ -7,7 +7,6 @@ import 'package:task_manager/data/model/user_model.dart';
 import 'package:task_manager/data/network_caller.dart';
 import 'package:task_manager/data/network_response.dart';
 import 'package:task_manager/data/utility/urls.dart';
-import 'package:task_manager/presentation/UI/Screens/main_bottom_nav_screen.dart';
 import 'package:task_manager/presentation/UI/Widgets/body_background.dart';
 import 'package:task_manager/presentation/UI/Widgets/center_circuler_indicatior.dart';
 import 'package:task_manager/presentation/UI/Widgets/profile_summery_card.dart';
@@ -202,12 +201,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }
               },
               child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8),
-                  ),
-                ),
                 padding: const EdgeInsets.only(left: 16),
                 child: Visibility(
                   visible: photo == null,
@@ -225,21 +218,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_formkey.currentState!.validate()) {
       _updateProfileInProgress = true;
       setState(() {});
-      final NetworkResponse response = await NetworkCaller().postRequest(
-        Urls.updateProfile,
-        body: {
-          "email": _emailTEcontroller.text.trim(),
-          "firstName": _firstNameTEcontroller.text.trim(),
-          "lastName": _lastNameTEcontroller.text.trim(),
-          "mobile": _mobileTEcontroller.text.trim(),
-        },
-      );
+      String? photoInBase64;
+      Map<String, dynamic> inputData = {
+        "email": _emailTEcontroller.text.trim(),
+        "firstName": _firstNameTEcontroller.text.trim(),
+        "lastName": _lastNameTEcontroller.text.trim(),
+        "mobile": _mobileTEcontroller.text.trim(),
+      };
 
       if(photo != null){
         List<int> imageBytes = await photo!.readAsBytes();
-        String photoByte64 = base64Encode(imageBytes);
-
+        photoInBase64 = base64Encode(imageBytes);
+        inputData["photo"] = photoInBase64;
       }
+
+      final NetworkResponse response = await NetworkCaller().postRequest(
+        Urls.updateProfile,
+        body: inputData
+      );
       _updateProfileInProgress = false;
       setState(() {});
       if (response.isSuccess) {
@@ -249,16 +245,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             firstName: _firstNameTEcontroller.text.trim(),
             lastName: _lastNameTEcontroller.text.trim(),
             mobile: _mobileTEcontroller.text.trim(),
+            photo: photoInBase64 ?? AuthController.user?.photo
           ),
         );
         if (mounted) {
           appSnackMessage(context, "Your Profile has been updated");
         }
         if (mounted) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainBottomNavScreen()));
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => const MainBottomNavScreen()));
         }
       } else {
         if (mounted) {

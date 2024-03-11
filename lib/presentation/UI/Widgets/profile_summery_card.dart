@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:task_manager/data/controller/auth_controller.dart';
 import 'package:task_manager/presentation/UI/Screens/authentication/login_screen.dart';
@@ -18,6 +21,9 @@ class ProfileSummeryCard extends StatefulWidget {
 class _ProfileSummeryCardState extends State<ProfileSummeryCard> {
   @override
   Widget build(BuildContext context) {
+    Uint8List imageBytes =
+        const Base64Decoder().convert(AuthController.user?.photo ?? '');
+
     return ListTile(
       onTap: () {
         if (widget.enableOnTap) {
@@ -30,9 +36,13 @@ class _ProfileSummeryCardState extends State<ProfileSummeryCard> {
         }
       },
       tileColor: Colors.green,
-      leading: const CircleAvatar(
-        backgroundImage: NetworkImage(
-            "https://images.pexels.com/photos/15868390/pexels-photo-15868390/free-photo-of-bag-of-tulips.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+      leading: CircleAvatar(
+        child: AuthController.user?.photo == null
+            ? const Icon(Icons.person)
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.memory(imageBytes,fit: BoxFit.cover,),
+              ),
       ),
       title: Text(
         '${AuthController.user?.firstName} ${AuthController.user?.lastName}',
